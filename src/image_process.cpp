@@ -1075,18 +1075,21 @@ image_process *image_process::open(std::string fn,bool opt_recurse,
             errno=0;
             return 0;
         }
-        while ((dp = readdir(dirp)) != NULL){
-            if (strstr(dp->d_name,".E01") || strstr(dp->d_name,".000") || strstr(dp->d_name,".001")){
-                std::cerr << "error: file " << dp->d_name << " is in directory " << fn << "\n";
-                std::cerr << "       The -R option is not for reading a directory of EnCase files\n";
-                std::cerr << "       or a directory of disk image parts. Please process these\n";
-                std::cerr << "       as a single disk image. If you need to process these files\n";
-                std::cerr << "       then place them in a sub directory of " << fn << "\n";
-                errno=0;
-                closedir(dirp);
-                return 0;
-            }
-        }
+        /*
+         * You're not the boss of me!
+         */
+        // while ((dp = readdir(dirp)) != NULL){
+        //     if (strstr(dp->d_name,".E01") || strstr(dp->d_name,".000") || strstr(dp->d_name,".001")){
+        //         std::cerr << "error: file " << dp->d_name << " is in directory " << fn << "\n";
+        //         std::cerr << "       The -R option is not for reading a directory of EnCase files\n";
+        //         std::cerr << "       or a directory of disk image parts. Please process these\n";
+        //         std::cerr << "       as a single disk image. If you need to process these files\n";
+        //         std::cerr << "       then place them in a sub directory of " << fn << "\n";
+        //         errno=0;
+        //         closedir(dirp);
+        //         return 0;
+        //     }
+        // }
         closedir(dirp);
 	ip = new process_dir(fn);
     }
